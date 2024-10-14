@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  careconnect:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./careconnect:/careconnect
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db  # ระบุให้ขึ้นอยู่กับบริการฐานข้อมูล
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: careconnect_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 41472088
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # เก็บข้อมูลฐานข้อมูล
+
+volumes:
+  postgres_data:

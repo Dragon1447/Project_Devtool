@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <title>{% block title %}Care Connect{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="{% static '../static/js/nav.js' %}"></script>
+</head>
+<body class="bg-white">
+  <!-- Sidebar -->
+  <div class="w-64 h-screen p-4 bg-[#E6FBFB] text-white fixed top-0 left-0 flex flex-col">
+    <!-- Logo and Date Section -->
+    <div class="p-6 text-[#008DDA]">
+      <div class="flex items-center justify-center mb-2">
+        <img src="{% static 'images/logo-careconnect.png' %}" alt="Care Connect Logo" class="pr-2 w-60 h-auto">
+      </div>
+      <div class="text-center text-xl font-semibold">{{ current_weekday }}</div>
+      <div class="text-center text-8xl font-bold mb-1 ">{{ current_day }}</div>
+      <div class="text-center text-xl font-semibold mb-1">{{ current_month }} {{ current_year }}</div>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex flex-col space-y-4 font-semibold text-[#008DDA]">
+      <a href="{% url 'medicine' %}" class="flex items-center p-4 hover:bg-[#C2DBE9] rounded-lg text-xl">
+        <i class="fa-solid fa-capsules mr-2"></i>
+        <span>Medicine</span>
+      </a>
+      <a href="{% url 'doctor' %}" class="flex items-center p-4 hover:bg-[#C2DBE9] rounded-lg text-xl">
+        <i class="fa-solid fa-user-doctor mr-2"></i>
+        <span>Doctor</span>
+      </a>
+    </nav>
+
+    <div class="user relative inline-block text-left pt-40">
+      <div class="flex justify-between items-center p-4 hover:bg-[#C2DBE9] rounded-lg cursor-pointer" onclick="logoutDropdown()">
+        <div class="name flex gap-2">
+          <span class="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center">T</span>
+          <p class="p-2 font-bold text-[#008DDA]"> Tanggy </p>
+        </div>
+
+        <div class="setting">
+          <i class="fa-solid fa-gear text-[#008DDA]"></i>
+        </div>
+      </div>
+
+      <!-- Dropdown menu (initially hidden) -->
+      <div id="logoutDropdown" class="hidden absolute right-0 mt-2 w-48 origin-top-right bg-gray-200 border border-gray-500 rounded-md shadow-lg z-10">
+          <div class="py-1">
+              <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300"><b>Logout</b></a>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="ml-64 flex-1">
+    {% block content %}
+      <div class="text-gray-700">
+      </div>
+    {% endblock %}
+  </div>
+
+</body>
+</html>
